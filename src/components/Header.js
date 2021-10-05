@@ -29,18 +29,18 @@ class Header extends React.Component {
 		const date = new Date();
 		this.weekDay[0] = "Sunday";
 		this.weekDay[1] = "Monday";
-	    this.weekDay[2] = "Tuesday";
+	  this.weekDay[2] = "Tuesday";
  		this.weekDay[3] = "Wednesday";
 		this.weekDay[4] = "Thursday";
 		this.weekDay[5] = "Friday";
 		this.weekDay[6] = "Saturday";
-    	this.setState({
-    		weekDay : this.weekDay[date.getDay()],
-    		mountDay: date.getDate(),
-    		mount: this.monthNames[date.getMonth()],
-    		year: date.getFullYear()
-    	});
-  	}
+    this.setState({
+   		weekDay : this.weekDay[date.getDay()],
+   		mountDay: date.getDate(),
+   		mount: this.monthNames[date.getMonth()],
+   		year: date.getFullYear()
+    });
+  }
 
   render(){
     return(
@@ -65,6 +65,7 @@ class Header extends React.Component {
 	         				<h1>
 	         					{ this.state.mount } { this.state.year }
 	         				</h1>
+	         				
 	         		</div>
          		</div>
          	</div>
