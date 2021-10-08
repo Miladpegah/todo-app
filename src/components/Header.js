@@ -6,10 +6,9 @@ class Header extends React.Component {
 		weekDay: '',
 		mountDay:'',
 		mount: '',
-		year: ''
+		year: '',
 	};
 	weekDay = new Array(7);
-
 	monthNames = [
 		"January",
 		"February",
@@ -24,6 +23,8 @@ class Header extends React.Component {
 		"November",
 		"December"
 	];
+  claendarStatus;
+
 
 	componentDidMount(){
 		const date = new Date();
@@ -40,9 +41,25 @@ class Header extends React.Component {
    		mount: this.monthNames[date.getMonth()],
    		year: date.getFullYear()
     });
+		
+  }
+
+  setShowStatus(event){
+  	if (this.claendarStatus === true) {
+  		this.claendarStatus = false;
+  	}else if(this.claendarStatus === false || this.claendarStatus === null){
+  		this.claendarStatus = true;
+  	}
+    this.props.parentCallback(this.claendarStatus);
   }
 
   render(){
+  	let btnNote;
+  	if (this.claendarStatus === true) {
+  		btnNote = "Notes";
+  	}else{
+  		btnNote = "Calendar";
+  	}
     return(
         <>
          <div className="header-element">
@@ -54,7 +71,9 @@ class Header extends React.Component {
 	         					<button className="ui inverted button">Today</button>
 	         				</div>
 	         				<div className="header-button-right">
-	         					<button className="ui inverted button">Calendar</button>
+	         					<button className="ui inverted button" onClick={(event) => this.setShowStatus(event)}>
+	         						{btnNote}
+	         					</button>
 	         				</div>
 	         			</div>
 	         		</div>
