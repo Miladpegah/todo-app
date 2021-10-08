@@ -58,3 +58,78 @@
   float: right;
 
 }
+
+:root {
+  --ligth-gray: #DADCE0;
+  --ligth-blue: #1B9CE2;
+  --ligth-sea-green: #20B2AA;
+}
+.clalendar-header{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+}
+.shift{
+  text-align: center;
+    font-size: 12px;
+    cursor: pionter;
+    transition: background-color 200ms, color 200ms;
+    padding-bottom: 1%;
+    font-family: "Lucida Console", "Courier New", monospace;  
+    color: var(--ligth-blue);
+}
+a {
+  text-decoration: none;
+    color: var(--ligth-blue);
+}
+
+.month-name {
+  text-align: center;
+    font-size: 12px;
+    cursor: pionter;
+    transition: background-color 200ms, color 200ms;
+    padding-bottom: 1%;
+    font-family: "Lucida Console", "Courier New", monospace;
+
+}
+
+#app-calendar{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  height: 98vh;
+}
+
+.day{
+  border-bottom: 1px solid var(--ligth-gray);
+    border-right: 1px solid var(--ligth-gray);
+    text-align: center;
+    padding-top: 2%;
+    font-size: 12px;
+    cursor: pionter;
+    transition: background-color 200ms, color 200ms;
+}
+
+.name{
+  padding-bottom: 2%;
+}
+
+.weekend{
+  color: skyblue;
+}
+
+.selected {
+  background-color: var(--ligth-blue);
+  color: white;
+}
+
+.today {
+  background-color: var(--ligth-sea-green);
+  color: white;
+}
+
+.root {
+  width: 100%;
+}
+
+
