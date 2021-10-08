@@ -39,7 +39,7 @@ class Calendar extends React.Component {
 		const getDaysInMonthUTC = (month, year) => {
 		  let date = new Date(Date.UTC(year, month, 1));
 		  let days = [];
-		  if(month == 12){
+		  if(month === 12){
 		  	month = 0;
 		  }
 		  while (date.getUTCMonth() === month) {

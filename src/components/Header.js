@@ -23,7 +23,7 @@ class Header extends React.Component {
 		"November",
 		"December"
 	];
-  claendarStatus;
+  claendarStatus = false;
 
 
 	componentDidMount(){

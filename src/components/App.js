@@ -12,7 +12,7 @@ handleCallback = (childData) =>{
 
   render(){
     let calendar;
-    if (this.state.claendarStatus == true) {
+    if (this.state.claendarStatus === true) {
       calendar = <Calendar/>;
     }else{
       calendar = null;
