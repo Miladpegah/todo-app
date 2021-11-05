@@ -2,6 +2,7 @@ import React from 'react';
 import '../css/App.css';
 import Header from './Header';
 import Calendar from './Calendar';
+import AddTodo from './AddTodo';
 
 
 class App extends React.Component {
@@ -20,6 +21,7 @@ handleCallback = (childData) =>{
     return(
         <>
           <Header parentCallback = {this.handleCallback}/>
+          <AddTodo/>
           <div className="app-content">{calendar}</div>
 
         </>
