@@ -18,11 +18,12 @@ class AddTodo extends React.Component{
 			let information = {
 				id: this.state.id,
 				title: this.state.title,
-				contentkey: "value",  this.state.content,
-				checkedkey: "value",  this.state.checked,
-				datekey: "value",  this.state.date,
+				contentkey: this.state.content,
+				checkedkey: this.state.checked,
+				datekey: this.state.date,
 			};
 			this.date.push(information);
+
 			formSubmit.className='ui black button';
 		};
 
