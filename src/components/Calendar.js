@@ -7,6 +7,7 @@ class Calendar extends React.Component {
 		const monthName = document.querySelector('#month-name');
 		const previous = document.querySelector('#previous');
 		const future = document.querySelector('#future');
+		const dayClasses = calendar.querySelector('.day');
 		let year = new Date().getFullYear();
 		let month = new Date().getMonth();
 		let monthLong = new Intl.DateTimeFormat("en-US", { month: "long" }).format(new Date(Date.UTC(year, month, 1)));
@@ -91,6 +92,10 @@ class Calendar extends React.Component {
 			});
 		}
 
+		const showSelectedDate = (element) => {
+			console.log(element);
+		}
+
 		let days = getDaysInMonthUTC(month, year);
 
 
@@ -105,12 +110,12 @@ class Calendar extends React.Component {
 
 			if(day <= 7){
 				const dayName = getDayName(year, month,day);
-				name = `<div class="name">${dayName}</div>`
+				name = `<div className="name">${dayName}</div>`
 			}
 
 			calendar.insertAdjacentHTML(
 				"beforeend",
-				`<div class="day ${weekend ? "weekend" : ""} ${today ? "today" : ""}">
+				`<div class="day ${weekend ? "weekend" : ""} ${today ? "today" : ""}" data-year="${year}" data-month="${month}" data-day"${day}">
 					${name}
 					${day}
 					${weekend ? "<br/><p style='color:#FFA500'>weekend</p>" : ""}

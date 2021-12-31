@@ -1,4 +1,5 @@
 import React from 'react';
+import { saveAs } from 'file-saver';
 import '../css/App.css';
 
 class AddTodo extends React.Component{
@@ -23,7 +24,6 @@ class AddTodo extends React.Component{
 				datekey: this.state.date,
 			};
 			this.date.push(information);
-
 			formSubmit.className='ui black button';
 		};
 
