@@ -2,10 +2,14 @@ import React from 'react';
 import '../css/App.css';
 
 class Calendar extends React.Component {
-	state = {
-			created_time : null,
-			date : null,
-		}
+	constructor(props, ref) {
+      super(props);
+      this.state = {
+  		created_time : null,
+		date : null,
+      };
+   	}
+
 	componentDidMount(){
 		const formatDate = value => {
 			let date = new Date(value);
@@ -188,6 +192,7 @@ class Calendar extends React.Component {
 				this.setState({
 					date: formatDate(date)
 				});
+				console.log(this.state.date);
 			});
 		});
 	}

@@ -6,8 +6,8 @@ import AddTodo from './AddTodo';
 
 
 class App extends React.Component {
-state = {claendarStatus: false};
-handleCallback = (childData) =>{
+    state = {claendarStatus: false};
+    handleCallback = (childData) =>{
         this.setState({claendarStatus: childData});
     }
 
