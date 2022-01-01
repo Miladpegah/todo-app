@@ -184,7 +184,10 @@ class Calendar extends React.Component {
 				let year = element.getAttribute('data-year');
 				let month = element.getAttribute('data-month');
 				let day = element.getAttribute('data-day');
-				console.log(year + '-' + month + '-' + day);
+				let date = Date(year + '-' + month + '-' + day);
+				this.setState({
+					date: formatDate(date)
+				});
 			});
 		});
 	}
