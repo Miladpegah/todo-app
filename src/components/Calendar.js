@@ -2,7 +2,29 @@ import React from 'react';
 import '../css/App.css';
 
 class Calendar extends React.Component {
+	state = {
+			created_time : null,
+			date : null,
+		}
 	componentDidMount(){
+		const formatDate = value => {
+			let date = new Date(value);
+
+			let month = date.getMonth();
+			let year = date.getFullYear();
+			let day = date.getDate();
+
+			if (month.length < 2) 
+		        month = '0' + month;
+		    if (day.length < 2) 
+		        day = '0' + day;
+
+		    return [year, month, day].join('-');
+		}
+
+		this.setState({
+			date: formatDate(new Date())
+		});
 		const calendar = document.querySelector('#app-calendar');
 		const monthName = document.querySelector('#month-name');
 		const previous = document.querySelector('#previous');
@@ -115,7 +137,7 @@ class Calendar extends React.Component {
 
 			calendar.insertAdjacentHTML(
 				"beforeend",
-				`<div class="day ${weekend ? "weekend" : ""} ${today ? "today" : ""}" data-year="${year}" data-month="${month}" data-day"${day}">
+				`<div class="day ${weekend ? "weekend" : ""} ${today ? "today" : ""}" data-year="${year}" data-month="${month}" data-day="${day}">
 					${name}
 					${day}
 					${weekend ? "<br/><p style='color:#FFA500'>weekend</p>" : ""}
@@ -156,6 +178,13 @@ class Calendar extends React.Component {
 		document.querySelectorAll('#app-calendar .day').forEach(day => {
 			day.addEventListener("click", event => {
 				event.currentTarget.classList.toggle("selected");
+			});
+			day.addEventListener("dblclick", event => {
+				let element = event.target;
+				let year = element.getAttribute('data-year');
+				let month = element.getAttribute('data-month');
+				let day = element.getAttribute('data-day');
+				console.log(year + '-' + month + '-' + day);
 			});
 		});
 	}
