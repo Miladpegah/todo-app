@@ -62,7 +62,6 @@ class Calendar extends React.Component {
 
 			return dayName;
 		}
-
 		const getDaysInMonthUTC = (month, year) => {
 		  let date = new Date(Date.UTC(year, month, 1));
 		  let days = [];
@@ -93,12 +92,12 @@ class Calendar extends React.Component {
 
 				if(day <= 7){
 					const dayName = getDayName(year, pastMonth, day);
-					name = `<div class="name">${dayName}</div>`
+					name = `<div className="name">${dayName}</div>`
 				}
 
 				calendar.insertAdjacentHTML(
 					"beforeend",
-					`<div class="day ${weekend ? "weekend" : ""} ${today ? "today" : ""}">
+					`<div className="day ${weekend ? "weekend" : ""} ${today ? "today" : ""}">
 						${name}
 						${day}
 						${weekend ? "<br/><p style='color:#FFA500'>weekend</p>" : ""}
@@ -141,7 +140,7 @@ class Calendar extends React.Component {
 
 			calendar.insertAdjacentHTML(
 				"beforeend",
-				`<div class="day ${weekend ? "weekend" : ""} ${today ? "today" : ""}" data-year="${year}" data-month="${month}" data-day="${day}">
+				`<div className="day ${weekend ? "weekend" : ""} ${today ? "today" : ""}" data-year="${year}" data-month="${month}" data-day="${day}">
 					${name}
 					${day}
 					${weekend ? "<br/><p style='color:#FFA500'>weekend</p>" : ""}

@@ -59,7 +59,7 @@ class AddTodo extends React.Component{
 							    <label>Title</label>
 							    <input type="text" name="Title" id="formTitle" placeholder="Title" onChange={this.handleTitleChange}/>
 							  </div>
-							  <div class="field">
+							  <div className="field">
 							    <label>Content</label>
 							    <textarea className="Content" id="formContent" rows="3" placeholder="Write here your todo details" onChange={this.handleContentChange}></textarea>
 							  </div>
