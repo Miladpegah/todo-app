@@ -4,11 +4,12 @@ import Header from './Header';
 import Calendar from './Calendar';
 import AddTodo from './AddTodo';
 import Cookies from 'universal-cookie';
+import LoginForm from './LoginForm';
 
 class App extends React.Component {
     state = {
       claendarStatus: false,
-      loggedIn: false
+      login_status: false
     };
     handleCallback = (childData) =>{
         this.setState({claendarStatus: childData});
@@ -47,20 +48,22 @@ class App extends React.Component {
       result.setDate(new Date(Date.now()).getDate() + target);
       return result; 
     }
+    this.setState({login_status: isLoggedIn()});
   }
   render(){
-    let calendar;
-    if (this.state.claendarStatus === true) {
-      calendar = <Calendar/>;
+    let content;  
+    if(this.state.login_status == false){
+      content = <LoginForm/>
+    }
+    else if (this.state.claendarStatus === true) {
+      content = <Calendar/>;
     }else{
-      calendar = null;
+      content = <AddTodo/>;
     }
     return(
         <>
           <Header parentCallback = {this.handleCallback}/>
-          <AddTodo/>
-          <div className="app-content">{calendar}</div>
-
+          <div className="app-content">{content}</div>
         </>
       );
   }

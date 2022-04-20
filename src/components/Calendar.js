@@ -9,7 +9,9 @@ class Calendar extends React.Component {
 		date : null,
       };
    	}
-
+   	dayClick(){
+   		alert();
+   	}
 	componentDidMount(){
 		const formatDate = value => {
 			let date = new Date(value);
@@ -33,7 +35,7 @@ class Calendar extends React.Component {
 		const monthName = document.querySelector('#month-name');
 		const previous = document.querySelector('#previous');
 		const future = document.querySelector('#future');
-		const dayClasses = calendar.querySelector('.day');
+		const dayClasses = document.querySelectorAll('#app-calendar .day');
 		let year = new Date().getFullYear();
 		let month = new Date().getMonth();
 		let monthLong = new Intl.DateTimeFormat("en-US", { month: "long" }).format(new Date(Date.UTC(year, month, 1)));
@@ -97,7 +99,7 @@ class Calendar extends React.Component {
 
 				calendar.insertAdjacentHTML(
 					"beforeend",
-					`<div className="day ${weekend ? "weekend" : ""} ${today ? "today" : ""}">
+					`<div className='day${weekend ? " weekend" : ""}${today ? " today" : ""}'>
 						${name}
 						${day}
 						${weekend ? "<br/><p style='color:#FFA500'>weekend</p>" : ""}
@@ -140,7 +142,8 @@ class Calendar extends React.Component {
 
 			calendar.insertAdjacentHTML(
 				"beforeend",
-				`<div className="day ${weekend ? "weekend" : ""} ${today ? "today" : ""}" data-year="${year}" data-month="${month}" data-day="${day}">
+				`<div className='day${weekend ? " weekend" : ""}${today ? " today" : ""}' 
+				data-year="${year}" data-month="${month}" data-day="${day}">
 					${name}
 					${day}
 					${weekend ? "<br/><p style='color:#FFA500'>weekend</p>" : ""}
@@ -176,27 +179,26 @@ class Calendar extends React.Component {
 			}
 			calendarCalculator(currentYear, totallMonth);
 		});
-
-
-		document.querySelectorAll('#app-calendar .day').forEach(day => {
-			day.addEventListener("click", event => {
-				event.currentTarget.classList.toggle("selected");
-			});
-			day.addEventListener("dblclick", event => {
-				let element = event.target;
-				let year = element.getAttribute('data-year');
-				let month = element.getAttribute('data-month');
-				let day = element.getAttribute('data-day');
-				let date = Date(year + '-' + month + '-' + day);
-				this.setState({
-					date: formatDate(date)
+			document.querySelectorAll('#app-calendar div').forEach(day => {
+				day.addEventListener("click", event => {
+					event.currentTarget.classList.toggle("selected");
 				});
-				console.log(this.state.date);
+				day.addEventListener("dblclick", event => {
+					let element = event.target;
+					let year = element.getAttribute('data-year');
+					let month = element.getAttribute('data-month');
+					let day = element.getAttribute('data-day');
+					let date = Date(year + '-' + month + '-' + day);
+					this.setState({
+						date: formatDate(date)
+					});
+					console.log(this.state.date);
+				});
 			});
-		});
 	}
 
 	render(){
+		console.log(document.querySelectorAll('#app-calendar div'));
 		return(
 			<div className="root">
 				<div className="clalendar-header">

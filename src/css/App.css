@@ -108,6 +108,7 @@ a {
     font-size: 12px;
     cursor: pionter;
     transition: background-color 200ms, color 200ms;
+    text-align: center;
 }
 
 .name{
