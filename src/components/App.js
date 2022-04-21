@@ -69,7 +69,6 @@ class App extends React.Component {
     this.setState({login_status: isLoggedIn()});
   }
   render(){
-    console.log('app: ' + this.state.calendar);
     let content;
     let header;  
     if(this.state.login_status == false){

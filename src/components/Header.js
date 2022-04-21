@@ -65,7 +65,6 @@ class Header extends React.Component {
   }
 
   render(){
-  	console.log('header: ' + this.props.calendarStatus);
   	let btnNote;
   	if (this.props.calendarStatus === true) {
   		btnNote = "Notes";
