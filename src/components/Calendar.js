@@ -179,7 +179,6 @@ class Calendar extends React.Component {
 		});
 			document.querySelectorAll('#app-calendar div').forEach(day => {
 				day.addEventListener("click", event => {
-					event.currentTarget.classList.toggle("selected");
 					let element = event.target;
 					let year = element.getAttribute('data-year');
 					let month = element.getAttribute('data-month');
@@ -195,15 +194,11 @@ class Calendar extends React.Component {
 					};
 				    this.props.parentSetDate(result);
 				});
-				day.addEventListener("dblclick", event => {
-					let element = event.target;
-					let year = element.getAttribute('data-year');
-					let month = element.getAttribute('data-month');
-					let day = element.getAttribute('data-day');
-					let date = Date(year + '-' + month + '-' + day);
-					this.setState({
-						date: formatDate(date)
-					});
+				day.addEventListener("mouseover", event => {
+					event.currentTarget.classList.toggle("selected");
+				});
+				day.addEventListener("mouseout", event => {
+					event.currentTarget.classList.toggle("selected");
 				});
 			});
 	}

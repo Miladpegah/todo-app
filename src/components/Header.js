@@ -9,6 +9,7 @@ class Header extends React.Component {
 			mountDay:'',
 			mount: '',
 			year: '',
+			calendarStatus: false,
 		};
  		
  	}
@@ -27,10 +28,12 @@ class Header extends React.Component {
 		"November",
 		"December"
 	];
-  claendarStatus = false;
 
 
 	componentDidMount(){
+		this.setState({
+			calendarStatus: this.props.calendarStatus
+		});
 		// let parent_date = this.props.parentDate();
 		// let date = new Date(parent_date);
 		// let date = new Date(this.props.parentDate());
@@ -47,21 +50,24 @@ class Header extends React.Component {
    		mountDay: date.getDate(),
    		mount: this.monthNames[date.getMonth()],
    		year: date.getFullYear()
-    });		
+    });	
+  	document.querySelector('#calendarStatus').click();
+
   }
 
   setShowStatus(event){
-  	if (this.claendarStatus === true) {
-  		this.claendarStatus = false;
-  	}else if(this.claendarStatus === false || this.claendarStatus === null){
-  		this.claendarStatus = true;
+  	if (this.props.calendarStatus === true) {
+  		this.state.calendarStatus = false;
+  	}else if(this.props.calendarStatus === false || this.props.calendarStatus === null){
+  		this.state.calendarStatus = true;
   	}
-    this.props.parentCallback(this.claendarStatus);
+    this.props.parentCallback(this.state.calendarStatus);
   }
 
   render(){
+  	console.log('header: ' + this.props.calendarStatus);
   	let btnNote;
-  	if (this.claendarStatus === true) {
+  	if (this.props.calendarStatus === true) {
   		btnNote = "Notes";
   	}else{
   		btnNote = "Calendar";
@@ -77,7 +83,7 @@ class Header extends React.Component {
 	         					<button className="ui inverted button">Today</button>
 	         				</div>
 	         				<div className="header-button-right">
-	         					<button className="ui inverted button" onClick={(event) => this.setShowStatus(event)}>
+	         					<button className="ui inverted button" id="calendarStatus" onClick={(event) => this.setShowStatus(event)}>
 	         						{btnNote}
 	         					</button>
 	         				</div>
