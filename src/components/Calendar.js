@@ -8,9 +8,7 @@ class Calendar extends React.Component {
   		created_time : null,
 		date : null,
       };
-   	}
-   	dayClick(){
-   		alert();
+   		
    	}
 	componentDidMount(){
 		const formatDate = value => {
@@ -120,7 +118,7 @@ class Calendar extends React.Component {
 		}
 
 		const showSelectedDate = (element) => {
-			console.log(element);
+			// console.log(element);
 		}
 
 		let days = getDaysInMonthUTC(month, year);
@@ -182,6 +180,20 @@ class Calendar extends React.Component {
 			document.querySelectorAll('#app-calendar div').forEach(day => {
 				day.addEventListener("click", event => {
 					event.currentTarget.classList.toggle("selected");
+					let element = event.target;
+					let year = element.getAttribute('data-year');
+					let month = element.getAttribute('data-month');
+					let day = element.getAttribute('data-day');
+					let date = new Date(year + '-' + month + '-' + day);
+					// let day = event.currentTarget.dataset.day;
+					// let month = event.currentTarget.dataset.month;
+					// let year = event.currentTarget.dataset.year;
+					// let date = day + "-" + month + "-" + year;
+					let result = {
+						'date': date,
+						'claendarStatus': false
+					};
+				    this.props.parentSetDate(result);
 				});
 				day.addEventListener("dblclick", event => {
 					let element = event.target;
@@ -192,13 +204,11 @@ class Calendar extends React.Component {
 					this.setState({
 						date: formatDate(date)
 					});
-					console.log(this.state.date);
 				});
 			});
 	}
 
 	render(){
-		console.log(document.querySelectorAll('#app-calendar div'));
 		return(
 			<div className="root">
 				<div className="clalendar-header">

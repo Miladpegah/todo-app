@@ -46,7 +46,6 @@ class LoginForm extends React.Component {
 					'password': password,
 					'token': randomStr(100),
 				};
-				console.log(data);
 			}else{
 				let message = '';
 				for(let m = 0; m < messages.length; m++){

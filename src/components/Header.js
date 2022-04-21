@@ -2,12 +2,16 @@ import React from 'react';
 import '../css/App.css';
 
 class Header extends React.Component {
-	state = {
-		weekDay: '',
-		mountDay:'',
-		mount: '',
-		year: '',
-	};
+	constructor(props, ref) {
+    super(props);
+    this.state = {
+			weekDay: '',
+			mountDay:'',
+			mount: '',
+			year: '',
+		};
+ 		
+ 	}
 	weekDay = new Array(7);
 	monthNames = [
 		"January",
@@ -27,7 +31,10 @@ class Header extends React.Component {
 
 
 	componentDidMount(){
-		const date = new Date();
+		// let parent_date = this.props.parentDate();
+		// let date = new Date(parent_date);
+		// let date = new Date(this.props.parentDate());
+		let date = new Date();
 		this.weekDay[0] = "Sunday";
 		this.weekDay[1] = "Monday";
 	  this.weekDay[2] = "Tuesday";
@@ -40,8 +47,7 @@ class Header extends React.Component {
    		mountDay: date.getDate(),
    		mount: this.monthNames[date.getMonth()],
    		year: date.getFullYear()
-    });
-		
+    });		
   }
 
   setShowStatus(event){
@@ -77,7 +83,7 @@ class Header extends React.Component {
 	         				</div>
 	         			</div>
 	         		</div>
-	         		<div className="col-md-12" style={{ paddingTop:'5%'}}>
+	         		<div className="col-md-12" id="header-date" style={{ paddingTop:'5%'}}>
 	         				<h1>
 		         				{ this.state.weekDay }, {this.state.mountDay}th
 	         				</h1>

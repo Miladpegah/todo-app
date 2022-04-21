@@ -9,13 +9,28 @@ import LoginForm from './LoginForm';
 class App extends React.Component {
     state = {
       claendarStatus: false,
-      login_status: false
+      login_status: false,
+      date: null,
     };
     handleCallback = (childData) =>{
-        this.setState({claendarStatus: childData});
-    }
+        this.setState({
+          claendarStatus: childData
+        });
 
+    }
+    parentSetDate = (childData) => {
+        this.setState({
+          date: childData['date'],
+          claendarStatus: childData['claendarStatus']
+        });      
+    }
+    parentDate = () => {
+      return this.state.date;
+    }
   componentDidMount(){
+    this.setState({
+      date: new Date()
+    });
     const cookies = new Cookies();
     const randomStr = (length) => {
         let result           = '';
@@ -51,18 +66,22 @@ class App extends React.Component {
     this.setState({login_status: isLoggedIn()});
   }
   render(){
-    let content;  
+    let content;
+    let header;  
     if(this.state.login_status == false){
-      content = <LoginForm/>
+      content = <LoginForm/>;
+      header = <Header parentCallback = {this.handleCallback} parentDate = { this.parentDate }/>;
     }
     else if (this.state.claendarStatus === true) {
-      content = <Calendar/>;
+      content = <Calendar parentSetDate = {this.parentSetDate}/>;
+      header = <Header parentCallback = {this.handleCallback} parentDate = { this.parentDate }/>;
     }else{
       content = <AddTodo/>;
+      header = <Header parentCallback = {this.handleCallback} parentDate = { this.parentDate }/>;
     }
     return(
         <>
-          <Header parentCallback = {this.handleCallback}/>
+          {header}
           <div className="app-content">{content}</div>
         </>
       );
