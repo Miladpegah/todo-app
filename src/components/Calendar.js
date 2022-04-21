@@ -177,6 +177,9 @@ class Calendar extends React.Component {
 			}
 			calendarCalculator(currentYear, totallMonth);
 		});
+			for(let d = 0; d < document.querySelectorAll('#app-calendar div').length; d++){
+				document.querySelectorAll('#app-calendar div')[d].style.textAlign = 'center'
+			}
 			document.querySelectorAll('#app-calendar div').forEach(day => {
 				day.addEventListener("click", event => {
 					let element = event.target;
