@@ -10,6 +10,7 @@ class AddTodo extends React.Component{
 		};
    		
    	}
+	xhttp = new XMLHttpRequest();
 	date = [];
 	componentWillMount(){
 		this.setState({
@@ -141,9 +142,36 @@ class AddTodo extends React.Component{
 				document.querySelector('#formSubmit').addEventListener("click", event => {
 					let target = event.target.dataset.job;
 					if(target == 'create'){
-						alert('create');
+						let data = {
+							user_id: 1,
+							title: document.querySelector('#formTitle').value,
+							content: document.querySelector('#formContent').value,
+							date: this.props.rootDate
+						};
+						// create ajax
+						
+						// this.xhttp.onload = function() {
+					  	//   console.log(this.responseText);
+					  	// }
+					  	// this.xhttp.open("method", "url");
+					  	// this.xhttp.send();
+					  	// this.xhttp.send('date');
+
 					}else if(target == 'update'){
-						alert('update');
+						let data = {
+							user_id: 1,
+							title: document.querySelector('#formTitle').value,
+							content: document.querySelector('#formContent').value,
+							date: this.props.rootDate
+						};
+						// update ajax
+						
+						// this.xhttp.onload = function() {
+					  	//   console.log(this.responseText);
+					  	// }
+					  	// this.xhttp.open("method", "url");
+					  	// this.xhttp.send();
+					  	// this.xhttp.send('date');
 					}
 				});
 			});
@@ -153,7 +181,13 @@ class AddTodo extends React.Component{
 		document.querySelectorAll('.remove-todo').forEach(card => {
 			card.addEventListener("click", event => {
 				document.querySelector('#' + card.dataset.parent).remove();
-				// send remove ajax
+				  	
+				  	// this.xhttp.onload = function() {
+					  //   console.log(this.responseText);
+				  	// }
+				  	// this.xhttp.open("method", "url");
+				  	// this.xhttp.send();
+				  	// this.xhttp.send('date');
 			});
 		});
 
@@ -163,11 +197,23 @@ class AddTodo extends React.Component{
 				if(card.checked == true){
 					let id = card.dataset.id;
 					// send the is_checked request
+					// this.xhttp.onload = function() {
+					  //   console.log(this.responseText);
+				  	// }
+				  	// this.xhttp.open("method", "url");
+				  	// this.xhttp.send();
+				  	// this.xhttp.send('date');
 				}else{
 					let id = card.dataset.id;
 
 					// send the uncheck request
 
+					// this.xhttp.onload = function() {
+					  //   console.log(this.responseText);
+				  	// }
+				  	// this.xhttp.open("method", "url");
+				  	// this.xhttp.send();
+				  	// this.xhttp.send('date');
 				}
 			});
 		});
@@ -175,27 +221,27 @@ class AddTodo extends React.Component{
 
 		// Form submit
 		document.querySelector('#formSubmit').addEventListener("click", event => {
-				let target = event.target.dataset.job;
-				if(target == 'create'){
-					let data = {
-						user_id: 1,
-						title: document.querySelector('#formTitle').value,
-						content: document.querySelector('#formContent').value,
-						date: this.props.rootDate
-					};
-					console.log(data);
-					// create ajax
-				}else if(target == 'update'){
-					let data = {
-						user_id: 1,
-						title: document.querySelector('#formTitle').value,
-						content: document.querySelector('#formContent').value,
-						date: this.props.rootDate
-					};
-					console.log(data);
-					// update ajax
-				}
-			});
+			let target = event.target.dataset.job;
+			if(target == 'create'){
+				let data = {
+					user_id: 1,
+					title: document.querySelector('#formTitle').value,
+					content: document.querySelector('#formContent').value,
+					date: this.props.rootDate
+				};
+				console.log(data);
+				// create ajax
+			}else if(target == 'update'){
+				let data = {
+					user_id: 1,
+					title: document.querySelector('#formTitle').value,
+					content: document.querySelector('#formContent').value,
+					date: this.props.rootDate
+				};
+				console.log(data);
+				// update ajax
+			}
+		});
 
 		
 	}
