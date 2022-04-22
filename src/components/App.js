@@ -10,7 +10,7 @@ class App extends React.Component {
     state = {
       calendar: false,
       login_status: false,
-      date: null,
+      date: new Date(),
     };
     handleCallback = (childData) =>{
         this.setState({
@@ -77,7 +77,7 @@ class App extends React.Component {
     else if (this.state.calendar === true) {
       content = <Calendar parentSetDate = {this.parentSetDate}/>;
     }else{
-      content = <AddTodo/>;
+      content = <AddTodo rootDate={this.state.date}/>;
     }
     return(
         <>

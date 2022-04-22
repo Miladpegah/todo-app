@@ -3,9 +3,13 @@ import { saveAs } from 'file-saver';
 import '../css/App.css';
 
 class AddTodo extends React.Component{
-	state = {
-		data: null,
-	};
+	constructor(props, ref) {
+      	super(props);
+	    this.state = {
+			data: null,
+		};
+   		
+   	}
 	date = [];
 	componentWillMount(){
 		this.setState({
@@ -14,7 +18,7 @@ class AddTodo extends React.Component{
 					id: 1,
 					title: 'number one',
 					content: 'jf kdsjfskj fs',
-					checked: false,
+					checked: true,
 					date: '',
 				},
 				{
@@ -77,11 +81,15 @@ class AddTodo extends React.Component{
 
 		let cards = '';
 		this.state.data.map((data, d) => {
+			let is_checked = '';
+			if(data.checked == true){
+	  			is_checked = 'checked';
+	  		}
 			let card = `
 			<div class="col-md-12">
 				<div class="ui card d-inline-block w-100" id="todo_card_` + data.id +`">
 				  <div class="content">
-				    <i class="right floated edit icon edit-icon" style="cursor:pointer" ></i>
+				    <i class="right floated edit icon edit-icon" style="cursor:pointer" data-id="` + data.id + `"></i>
 				    <div class="header">Cute Dog</div>
 				    <div class="description">
 				      <p>
@@ -91,11 +99,11 @@ class AddTodo extends React.Component{
 				  </div>
 				  <div class="extra content">
 				    <span class="left floated">
-				      <i class="trash icon remove-todo" style="cursor:pointer"></i>
+				      <i class="trash icon remove-todo" style="cursor:pointer" data-id="` + data.id + `" data-parent="todo_card_` + data.id +`"></i>
 				    </span>
-				    <span class="right floated" data-inverted="" data-tooltip="Done" data-position="right center">
+				    <span class="right floated" data-inverted="" data-tooltip="Done" data-position="right center" data-id="` + data.id + `">
 				      	<div class="ui checkbox">
-						  <input type="checkbox" class="note-check" id="note_check_` + data.id + `" name="example" style="cursor:pointer"/>
+						  <input type="checkbox" class="note-check" id="note_check_` + data.id + `" name="example" style="cursor:pointer" data-id="` + data.id + `" ` + is_checked + `/>
 						  <label></label>
 						</div>
 				    </span>
@@ -110,25 +118,86 @@ class AddTodo extends React.Component{
 			cards = cards + card;
 		});
 		document.querySelector('#todo_cards').innerHTML = cards;
-		document.querySelectorAll('.edit-icon').forEach(card => {
-			card.addEventListener("click", event => {
-				alert('edit the note');
+		document.querySelectorAll('.edit-icon').forEach(edit => {
+			edit.addEventListener("click", event => {
+				let data = this.state.data.find(d => d.id == edit.dataset.id);
+				document.querySelector('#addTodoForm').innerHTML += `<button class="ui button" id="formCancel" type="button">Cancel</button>`;
+				document.querySelector('#formTitle').value = data.title;
+				document.querySelector('#formContent').value = data.content;
+				document.querySelector('#formSubmit').dataset.job = 'update';
+				document.querySelector('#formSubmit').dataset.target = edit.dataset.id;
+				document.querySelector('#formSubmit').innerHTML = 'Update';
+				
+				// cancel action
+				document.querySelector('#formCancel').addEventListener("click", event => {
+					document.querySelector('#formTitle').value = '';
+					document.querySelector('#formContent').value = '';
+					document.querySelector('#formSubmit').dataset.job = 'create';
+					document.querySelector('#formSubmit').innerHTML = 'Add';
+					document.querySelector('#formSubmit').dataset.target = '';
+					document.querySelector('#formCancel').remove();
+				});
+
+				document.querySelector('#formSubmit').addEventListener("click", event => {
+					let target = event.target.dataset.job;
+					if(target == 'create'){
+						alert('create');
+					}else if(target == 'update'){
+						alert('update');
+					}
+				});
 			});
 		});
+
+		// Note remove
 		document.querySelectorAll('.remove-todo').forEach(card => {
 			card.addEventListener("click", event => {
-				alert('remove the note');
+				document.querySelector('#' + card.dataset.parent).remove();
+				// send remove ajax
 			});
 		});
+
+		// Note check
 		document.querySelectorAll('.note-check').forEach(card => {
 			card.addEventListener("input", event => {
 				if(card.checked == true){
-					alert('check the note');
+					let id = card.dataset.id;
+					// send the is_checked request
 				}else{
-					alert('uncheck the note');
+					let id = card.dataset.id;
+
+					// send the uncheck request
+
 				}
 			});
 		});
+
+
+		// Form submit
+		document.querySelector('#formSubmit').addEventListener("click", event => {
+				let target = event.target.dataset.job;
+				if(target == 'create'){
+					let data = {
+						user_id: 1,
+						title: document.querySelector('#formTitle').value,
+						content: document.querySelector('#formContent').value,
+						date: this.props.rootDate
+					};
+					console.log(data);
+					// create ajax
+				}else if(target == 'update'){
+					let data = {
+						user_id: 1,
+						title: document.querySelector('#formTitle').value,
+						content: document.querySelector('#formContent').value,
+						date: this.props.rootDate
+					};
+					console.log(data);
+					// update ajax
+				}
+			});
+
+		
 	}
 
 	handleTitleChange = (e) => {
@@ -142,6 +211,16 @@ class AddTodo extends React.Component{
 	}
 	removeToDo = (event) =>{
 		console.log(event);
+	}
+	formAction = () => {
+		
+		let target = document.querySelector('#formSubmit');
+		console.log(target);
+		// if(target == 'create'){
+		// 	console.log()	('create');
+		// }else if(target == 'update'){
+		// 	alert('update');
+		// }
 	}
 
 	render() {
@@ -161,9 +240,8 @@ class AddTodo extends React.Component{
 							    <label>Content</label>
 							    <textarea className="Content" id="formContent" rows="3" placeholder="Write here your todo details" onChange={this.handleContentChange}></textarea>
 							  </div>
-							  <button className="ui black button" id="formSubmit" type="submit">Add</button>
+							  <button className="ui black button" id="formSubmit" data-job="create" data-target='' type="button">Add</button>
 							</div>
-
 							<div className="col col-md-12 pt-5" id="todo_cards">
 							</div>
 						</div>
