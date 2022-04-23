@@ -199,14 +199,14 @@ class AddTodo extends React.Component{
 				if(card.checked == true){
 					let id = card.dataset.id;
 					// send the is_checked request
-					this.xhttp.onload = function() {
-					    console.log(this.responseText);
-				  	}
+					// this.xhttp.onload = function() {
+					//     console.log(this.responseText);
+				 	//  }
 				  	// this.xhttp.open("GET", "https://gorest.co.in/public/v2/users/100/posts");
 				  	// this.xhttp.open("GET", "http://miladapi.ihweb.ir/php/");
-				  	this.xhttp.open("GET", "http://127.0.0.1/new_test.php");
+				  	// this.xhttp.open("GET", "http://127.0.0.1/new_test.php");
 					// XMLHttpRequest.setRequestHeader('Access-Control-Allow-Origin', '*');
-				  	this.xhttp.send();
+				  	// this.xhttp.send();
 				 // axios.get(`https://gorest.co.in/public/v2/users/100/posts`)
 			  //     .then(res => {
 			  //     	console.log(res);
@@ -290,11 +290,6 @@ class AddTodo extends React.Component{
 	}
 
 	render() {
-		
-		if(this.state.show == true){
-			console.log(this.state.show);	
-			console.log(this.state.show_target);
-		}
 		return (
 			<>
 				<div className="container">
