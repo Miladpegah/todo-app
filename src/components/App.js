@@ -5,12 +5,16 @@ import Calendar from './Calendar';
 import AddTodo from './AddTodo';
 import Cookies from 'universal-cookie';
 import LoginForm from './LoginForm';
+import ShowNote from './ShowNote';
 
 class App extends React.Component {
     state = {
       calendar: false,
       login_status: false,
       date: new Date(),
+      show: false,
+      show_title: null,
+      show_content: null,
     };
     handleCallback = (childData) =>{
         this.setState({
@@ -21,14 +25,31 @@ class App extends React.Component {
     parentSetDate = (childData) => {
         this.setState({
           date: childData['date'],
-          calendar: childData['claendarStatus']
-        });      
+          calendar: childData['claendarStatus'],
+          show: false,
+          show_title: null,
+          show_content: null,
+        });     
     }
     parentDate = () => {
       return this.state.date;
     }
     calendarStatus = () => {
       return this.state.calendar;
+    }
+    showNote = (title, content) => {
+      this.setState({
+        show: true,
+        show_title: title,
+        show_content: content,
+      });
+    }
+    unshowNote = () => {
+     this.setState({
+        show: false,
+        show_title: null,
+        show_content: null,
+      }); 
     }
   componentDidMount(){
     this.setState({
@@ -68,16 +89,22 @@ class App extends React.Component {
     }
     this.setState({login_status: isLoggedIn()});
   }
+
   render(){
     let content;
-    let header;  
     if(this.state.login_status == false){
       content = <LoginForm/>;
-    }
-    else if (this.state.calendar === true) {
-      content = <Calendar parentSetDate = {this.parentSetDate}/>;
     }else{
-      content = <AddTodo rootDate={this.state.date}/>;
+      if (this.state.calendar === true) {
+        content = <Calendar parentSetDate = {this.parentSetDate}/>;
+      }else{
+        if(this.state.show == true){
+          content = <ShowNote title={this.state.show_title} content={this.state.show_content} back={this.unshowNote}/>;
+        }else{
+          content = <AddTodo rootDate={this.state.date} showNote={this.showNote}/>;
+        }
+      }
+
     }
     return(
         <>

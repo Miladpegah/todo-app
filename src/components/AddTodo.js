@@ -1,6 +1,7 @@
 import React from 'react';
 import { saveAs } from 'file-saver';
 import '../css/App.css';
+import axios from 'axios';
 
 class AddTodo extends React.Component{
 	constructor(props, ref) {
@@ -8,10 +9,11 @@ class AddTodo extends React.Component{
 	    this.state = {
 			data: null,
 		};
-   		
+		   		
    	}
 	xhttp = new XMLHttpRequest();
 	date = [];
+
 	componentWillMount(){
 		this.setState({
 			data:[
@@ -109,7 +111,7 @@ class AddTodo extends React.Component{
 						</div>
 				    </span>
 				  </div>
-				   	<div class="ui bottom attached button">
+				   	<div class="ui bottom attached button show-note" data-id="` + data.id + `">
 				      <i class="eye icon"></i>
 				      Show
 				    </div>
@@ -197,11 +199,18 @@ class AddTodo extends React.Component{
 				if(card.checked == true){
 					let id = card.dataset.id;
 					// send the is_checked request
-					// this.xhttp.onload = function() {
-					  //   console.log(this.responseText);
-				  	// }
-				  	// this.xhttp.open("method", "url");
-				  	// this.xhttp.send();
+					this.xhttp.onload = function() {
+					    console.log(this.responseText);
+				  	}
+				  	// this.xhttp.open("GET", "https://gorest.co.in/public/v2/users/100/posts");
+				  	// this.xhttp.open("GET", "http://miladapi.ihweb.ir/php/");
+				  	this.xhttp.open("GET", "http://127.0.0.1/new_test.php");
+					// XMLHttpRequest.setRequestHeader('Access-Control-Allow-Origin', '*');
+				  	this.xhttp.send();
+				 // axios.get(`https://gorest.co.in/public/v2/users/100/posts`)
+			  //     .then(res => {
+			  //     	console.log(res);
+			  //     });
 				  	// this.xhttp.send('date');
 				}else{
 					let id = card.dataset.id;
@@ -243,6 +252,17 @@ class AddTodo extends React.Component{
 			}
 		});
 
+		document.querySelectorAll('.show-note').forEach(btn => {
+			btn.addEventListener("click", event => {
+				let id = btn.dataset.id;
+				let data = this.state.data.find(d => d.id == id);
+				let title = data.title;
+				let content = data.content;
+				this.props.showNote(title, content);
+
+			});
+		});
+
 		
 	}
 
@@ -270,6 +290,11 @@ class AddTodo extends React.Component{
 	}
 
 	render() {
+		
+		if(this.state.show == true){
+			console.log(this.state.show);	
+			console.log(this.state.show_target);
+		}
 		return (
 			<>
 				<div className="container">
